@@ -30,8 +30,6 @@ contract ERC721Test is Test {
         originBridge = new Bridge(address(originMailbox), address(igp), address(originErc721));
         destinationErc721 = new ERC721Multichain();
         destinationBridge = new Bridge(address(destinationMailbox), address(igp), address(destinationErc721));
-        originBridge.setOtherChainAddr(address(destinationBridge));
-        destinationBridge.setOtherChainAddr(address(originBridge));
         originErc721.setBridge(payable(address(originBridge)));
         destinationErc721.setBridge(payable(address(destinationBridge)));
     }

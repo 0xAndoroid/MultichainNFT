@@ -12,11 +12,12 @@ contract Deploy is Script {
 
         // Deploy ERC721Multichain
         ERC721Multichain erc721 = new ERC721Multichain();
-        new Bridge(
-            0x35231d4c2D8B8ADcB5617A638A0c4548684c7C70,
-            0x56f52c0A1ddcD557285f7CBc782D3d83096CE1Cc,
+        Bridge bridge = new Bridge(
+            0xCC737a94FecaeC165AbCf12dED095BB13F037685,
+            0xF90cB82a76492614D07B82a7658917f3aC811Ac1,
             address(erc721)
         );
+        erc721.setBridge(payable(address(bridge)));
 
         vm.stopBroadcast();
     }

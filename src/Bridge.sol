@@ -15,10 +15,20 @@ contract Bridge {
     IInterchainGasPaymaster public igp;
     ERC721Multichain public erc721;
 
+    address public otherChainAddr;
+
     constructor(address _mailbox, address _igp, address _erc721) {
         mailbox = IMailbox(_mailbox);
         igp = IInterchainGasPaymaster(_igp);
         erc721 = ERC721Multichain(_erc721);
+    }
+
+    function setOtherChainAddr(address _otherChainAddr) external {
+        require(
+            otherChainAddr == address(0),
+            "Bridge: otherChainAddr already set"
+        );
+        otherChainAddr = _otherChainAddr;
     }
 
     function quoteFeeTransfer(
@@ -81,7 +91,7 @@ contract Bridge {
         bytes memory message = abi.encode(1, _tokenId, _to);
         bytes32 messageId = mailbox.dispatch(
             _destination,
-            bytes32(abi.encode(this)),
+            bytes32(abi.encode(otherChainAddr)),
             message
         );
         igp.payForGas{value: msg.value}(
@@ -102,7 +112,7 @@ contract Bridge {
         bytes memory message = abi.encode(2, _tokenId, _to);
         bytes32 messageId = mailbox.dispatch(
             _destination,
-            bytes32(abi.encode(this)),
+            bytes32(abi.encode(otherChainAddr)),
             message
         );
         igp.payForGas{value: msg.value}(
@@ -122,7 +132,7 @@ contract Bridge {
         bytes memory message = abi.encode(3, _tokenId, address(0));
         bytes32 messageId = mailbox.dispatch(
             _destination,
-            bytes32(abi.encode(this)),
+            bytes32(abi.encode(otherChainAddr)),
             message
         );
         igp.payForGas{value: msg.value}(

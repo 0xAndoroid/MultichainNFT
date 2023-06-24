@@ -17,6 +17,14 @@ contract ERC721Multichain is ERC721("ERC721Multichain", "MNFT"), Wrappable {
     // Populated only when token IS native to this chain
     mapping(uint256 => uint32[]) public tokenChains;
 
+    function setBridge(address payable _bridge) public {
+        require(
+            bridge == address(0),
+            "ERC721Multichain: Bridge already set"
+        );
+        bridge = _bridge;
+    }
+
     // Contract address of original ERC721, Asset ID in that token.
     struct OriginalToken {
         address tokenAddress;

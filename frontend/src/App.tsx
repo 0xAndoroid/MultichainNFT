@@ -243,14 +243,14 @@ function App() {
           <img src="/logo.png" className="my-auto h-14 w-14" />
           <div className="flex justify-end w-auto h-auto"><button
             onClick={mintDumbNFT}
-            className="px-2 mr-3 w-auto h-auto text-xl rounded-xl bg-red"
+            className="px-2 mr-3 w-auto h-auto text-xl rounded-xl bg-red hover:scale-105"
           >
             Mint sample NFT
           </button>
             <ConnectButton />
           </div>
         </div>
-        <div className="flex flex-wrap flex-shrink-0">{nftComponents}</div>
+        <div className="flex flex-wrap flex-shrink-0 justify-around">{nftComponents}</div>
         <MintPopup mintPopup={mintPopup} connector={props.connector} />
         <TransferPopup
           transferPopup={transferPopup}

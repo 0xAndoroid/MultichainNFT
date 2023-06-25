@@ -38,7 +38,7 @@ function NFTComponent(props: Props) {
   };
 
   return (
-    <div className="w-64 h-64 min-w-64 min-h-64 flex m-5 mr-0 rounded-lg shadow-md hover:shadow-xl shadow-black hover:scale-105">
+    <div className="w-64 h-64 min-w-64 min-h-64 flex my-5 rounded-lg shadow-md hover:shadow-xl shadow-black">
       <img
         className="w-64 h-64 min-w-64 min-h-64 object-cover rounded-lg shadow-md shadow-black"
         src={

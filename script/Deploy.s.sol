@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 
 import "../src/Bridge.sol";
 import "../src/ERC721Multichain.sol";
+import "../src/ERC721Mintable.sol";
 import "forge-std/Script.sol";
 
 contract Deploy is Script {
@@ -18,6 +19,7 @@ contract Deploy is Script {
             address(erc721)
         );
         erc721.setBridge(payable(address(bridge)));
+        new ERC721Mintable("BAD_ERC721", "BAD_NFT");
 
         vm.stopBroadcast();
     }

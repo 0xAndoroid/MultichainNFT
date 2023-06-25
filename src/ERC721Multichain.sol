@@ -98,6 +98,25 @@ contract ERC721Multichain is ERC721("ERC721Multichain", "MNFT"), Wrappable {
         super.transferFrom(from, to, tokenId);
     }
 
+    function tokenURI(
+        uint256 tokenId
+    ) public view override returns (string memory) {
+        _requireMinted(tokenId);
+        require(
+            mainChain[tokenId] == 0,
+            "ERC721Multichain: Token is not on main chain, see URI on main chain"
+        );
+        require(
+            originalTokens[tokenId].tokenAddress != address(0),
+            "ERC721Multichain: Token is not wrapped"
+        );
+
+        return
+            IERC721Metadata(originalTokens[tokenId].tokenAddress).tokenURI(
+                originalTokens[tokenId].tokenId
+            );
+    }
+
     function safeTransferFrom(
         address from,
         address to,
@@ -166,11 +185,6 @@ contract ERC721Multichain is ERC721("ERC721Multichain", "MNFT"), Wrappable {
         mainChain[tokenId] = origin;
     }
 
-    // Make sure to remove this function later on TODO
-    function mint(address to, uint256 tokenId) external {
-        _mint(to, tokenId);
-    }
-
     function burnByBridge(uint256 tokenId, uint32 whereBurned) external {
         require(
             msg.sender == bridge,
@@ -193,18 +207,15 @@ contract ERC721Multichain is ERC721("ERC721Multichain", "MNFT"), Wrappable {
             originalTokens[tokenId].tokenAddress == address(0),
             "ERC721Multichain: Token is wrapped"
         );
-        if (mainChain[tokenId] == 0)
-            require(
-                tokenChains[tokenId].length == 0,
-                "ERC721Multichain: Can't burn token that exists on other chains"
-            );
-        else {
-            IBridge(bridge).burn{value: msg.value}(
-                mainChain[tokenId],
-                tokenId,
-                msg.sender
-            );
-        }
+        require(
+            mainChain[tokenId] == 0,
+            "ERC721Multichain: Token should be unwrapped"
+        );
+        IBridge(bridge).burn{value: msg.value}(
+            mainChain[tokenId],
+            tokenId,
+            msg.sender
+        );
 
         _burn(tokenId);
     }

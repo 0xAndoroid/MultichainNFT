@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@ankr.com/ankr.js": "^0.4.0",
+    "@rainbow-me/rainbowkit": "^1.0.3",
     "ethers": "^6.6.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "viem": "^1.1.7",
+    "wagmi": "^1.2.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

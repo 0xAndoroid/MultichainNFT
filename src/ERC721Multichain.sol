@@ -234,7 +234,7 @@ contract ERC721Multichain is ERC721("ERC721Multichain", "MNFT"), Wrappable {
         );
 
         uint256 wrappedTokenId = uint256(
-            keccak256(abi.encode(originalTokens[originalTokenId]))
+            keccak256(abi.encode(originalToken, originalTokenId))
         );
         originalTokens[wrappedTokenId] = OriginalToken(
             originalToken,

@@ -11,9 +11,12 @@ export async function verifyNFTOnchain(
   if (blockchain == "eth_goerli") {
     rpc =
       "https://rpc.ankr.com/eth_goerli/70198da14bc97b46f10f1308cf9ef8e84ec9fbc90b6e7bd5dfee6d38c149ef11";
-  } else {
+  } else if (blockchain == "avalanche_fuji") {
     rpc =
       "https://rpc.ankr.com/avalanche_fuji/70198da14bc97b46f10f1308cf9ef8e84ec9fbc90b6e7bd5dfee6d38c149ef11";
+  } else {
+    rpc =
+      "https://rpc.ankr.com/polygon_mumbai/70198da14bc97b46f10f1308cf9ef8e84ec9fbc90b6e7bd5dfee6d38c149ef11";
   }
   let provider: ethers.JsonRpcProvider = new ethers.JsonRpcProvider(rpc);
   let contract = new ethers.Contract(tokenAddress, erc721ABI, provider);
@@ -35,9 +38,12 @@ export async function getImageURL(
   if (blockchain == "eth_goerli") {
     rpc =
       "https://rpc.ankr.com/eth_goerli/70198da14bc97b46f10f1308cf9ef8e84ec9fbc90b6e7bd5dfee6d38c149ef11";
-  } else {
+  } else if (blockchain == "avalanche_fuji") {
     rpc =
       "https://rpc.ankr.com/avalanche_fuji/70198da14bc97b46f10f1308cf9ef8e84ec9fbc90b6e7bd5dfee6d38c149ef11";
+  } else {
+    rpc =
+      "https://rpc.ankr.com/polygon_mumbai/70198da14bc97b46f10f1308cf9ef8e84ec9fbc90b6e7bd5dfee6d38c149ef11";
   }
   let provider: ethers.JsonRpcProvider = new ethers.JsonRpcProvider(rpc);
   let contract = new ethers.Contract(tokenAddress, erc721ABI, provider);

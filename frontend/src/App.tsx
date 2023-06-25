@@ -5,7 +5,7 @@ import NewNFTComponent from "./components/NewNFTComponent";
 import NFT from "./structs/NFT";
 import TransferPopup from "./components/TransferPopup";
 import BurnPopup from "./components/BurnPopup";
-import { Network, getNetworkConfig } from "./structs/network";
+import { getNetworkConfig, parseAnkr } from "./structs/network";
 import "@rainbow-me/rainbowkit/styles.css";
 import {
   ConnectButton,
@@ -13,14 +13,14 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, useAccount, WagmiConfig } from "wagmi";
-import { avalancheFuji, goerli } from "wagmi/chains";
+import { avalancheFuji, goerli, polygonMumbai } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { AnkrProvider } from "@ankr.com/ankr.js";
 import { getImageURL, verifyNFTOnchain } from "./structs/verifyOwnership";
 import { ethers } from "ethers";
 
 const { chains, publicClient } = configureChains(
-  [goerli, avalancheFuji],
+  [goerli, avalancheFuji, polygonMumbai],
   [publicProvider()]
 );
 
@@ -54,7 +54,8 @@ function App() {
     let nfts = (
       await provider.getNFTsByOwner({
         walletAddress: address!,
-        blockchain: ["eth_goerli", "avalanche_fuji"],
+        // @ts-ignore
+        blockchain: ["eth_goerli", "avalanche_fuji", "polygon_mumbai"],
         pageSize: 25,
       })
     ).assets;
@@ -64,8 +65,7 @@ function App() {
         "0xEBe0C5Db625dAb34fBaD6cF29D31A39bE0dF09dB".toLowerCase()
       )
         continue;
-      let network =
-        nft.blockchain == "eth_goerli" ? Network.Goerli : Network.Fuji;
+      let network = parseAnkr(nft.blockchain);
       if (
         nft.contractAddress.toLowerCase() !=
         getNetworkConfig(network).erc721multichain.toLowerCase()
@@ -124,6 +124,7 @@ function App() {
         out.set(BigInt(nft.tokenId), newNFT);
       }
     }
+    console.log(out);
     return out;
   };
   useEffect(() => {
@@ -221,7 +222,7 @@ function App() {
             How about we mint one for you?
           </h1>
           <h1 className="text-xl text-center">
-            Just remember that you need some GoerliETH
+            Just remember that you need some coins for gas 
           </h1>
           <div className="flex justify-center my-5 mx-10 w-auto">
             <button

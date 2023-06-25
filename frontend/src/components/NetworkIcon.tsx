@@ -8,6 +8,9 @@ function NetworkIcon(props: { network: Network, glow?: boolean }) {
   if (props.network == Network.Fuji) {
     return <img title="Test" className={styles} src="https://github.com/spothq/cryptocurrency-icons/blob/master/128/color/avax.png?raw=true" />;
   }
+  if (props.network == Network.Mumbai) {
+    return <img title="Test" className={styles} src="https://github.com/spothq/cryptocurrency-icons/blob/master/128/color/matic.png?raw=true" />;
+  }
   return <></>;
 }
 

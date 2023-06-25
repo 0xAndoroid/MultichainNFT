@@ -208,7 +208,7 @@ contract ERC721Multichain is ERC721("ERC721Multichain", "MNFT"), Wrappable {
             "ERC721Multichain: Token is wrapped"
         );
         require(
-            mainChain[tokenId] == 0,
+            mainChain[tokenId] != 0,
             "ERC721Multichain: Token should be unwrapped"
         );
         IBridge(bridge).burn{value: msg.value}(

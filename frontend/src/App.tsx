@@ -17,6 +17,7 @@ import { avalancheFuji, goerli } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { AnkrProvider } from "@ankr.com/ankr.js";
 import { getImageURL, verifyNFTOnchain } from "./structs/verifyOwnership";
+import { ethers } from "ethers";
 
 const { chains, publicClient } = configureChains(
   [goerli, avalancheFuji],
@@ -184,13 +185,72 @@ function App() {
     if (nft.isMultichain) return <NFTComponent {...props} nft={nft} />;
     else return <NewNFTComponent {...props} nft={nft} />;
   });
+  async function mintDumbNFT() {
+    const abi = [
+      "function mint(address to, uint256 tokenId, string memory tokenURI) public",
+    ];
+    let provider = await new ethers.BrowserProvider(
+      await props.connector?.getProvider()
+    ).getSigner();
+    const contract = new ethers.Contract(
+      "0x72127d3bd3A10DB945E2eEab41Ac525f0ECb1667",
+      abi,
+      provider
+    );
+
+    const tokenId =
+      Math.floor(Math.random() * (Math.pow(10, 10) - 1000 + 1)) + 1000;
+    const tx = await contract.mint(
+      await provider.getAddress(),
+      tokenId,
+      "ipfs://QmZcH4YvBVVRJtdn4RdbaqgspFU8gH6P9vomDpBVpAL3u4/3025"
+    );
+    tx.wait();
+  }
+  if (nftComponents.length == 0) {
+    return (
+      <WagmiConfig config={wagmiConfig}>
+        <RainbowKitProvider chains={chains}>
+          <div className="flex justify-end my-5 mx-10 w-auto">
+            <ConnectButton />
+          </div>
+          <h1 className="text-3xl text-center animate-pulse">
+            It seems that you don't have any NFTs yet.
+          </h1>
+          <h1 className="text-3xl text-center">
+            How about we mint one for you?
+          </h1>
+          <h1 className="text-xl text-center">
+            Just remember that you need some GoerliETH
+          </h1>
+          <div className="flex justify-center my-5 mx-10 w-auto">
+            <button
+              onClick={mintDumbNFT}
+              className="w-44 h-16 text-3xl rounded-full bg-red"
+            >
+              Mint
+            </button>
+          </div>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    );
+  }
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <div className="flex justify-end my-5 mx-10 w-auto">
-          <ConnectButton />
+
+        <div className="flex justify-between my-5 mx-10 w-auto">
+          <img src="/logo.png" className="my-auto h-14 w-14" />
+          <div className="flex justify-end w-auto h-auto"><button
+            onClick={mintDumbNFT}
+            className="px-2 mr-3 w-auto h-auto text-xl rounded-xl bg-red"
+          >
+            Mint sample NFT
+          </button>
+            <ConnectButton />
+          </div>
         </div>
-        <div className="flex flex-shrink-0 flex-wrap">{nftComponents}</div>
+        <div className="flex flex-wrap flex-shrink-0">{nftComponents}</div>
         <MintPopup mintPopup={mintPopup} connector={props.connector} />
         <TransferPopup
           transferPopup={transferPopup}

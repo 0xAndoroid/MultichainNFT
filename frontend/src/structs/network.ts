@@ -31,8 +31,8 @@ export const getNetworkConfig = (network: Network): NetworkConfig => {
       network: Network.Goerli,
       chainId: BigInt(5),
       domainId: BigInt(5),
-      bridgeAddress: "0x655Cd3E60e9324D1E2078116c1EC3b9d0Fc6c89b",
-      erc721multichain: "0x05b257682fF0394176F5E6c1BbdFbFFC80D84704",
+      bridgeAddress: "0xF1BF44Eb007a1403E7b1ba5d59811C3566897d9F",
+      erc721multichain: "0x09e638C5FF7A51E9b4831d8f5A9b901D8D09B731",
     };
   }
   if (network == Network.Fuji) {
@@ -40,8 +40,8 @@ export const getNetworkConfig = (network: Network): NetworkConfig => {
       network: Network.Fuji,
       chainId: BigInt(43113),
       domainId: BigInt(43113),
-      bridgeAddress: "0x655Cd3E60e9324D1E2078116c1EC3b9d0Fc6c89b",
-      erc721multichain: "0x05b257682fF0394176F5E6c1BbdFbFFC80D84704",
+      bridgeAddress: "0xF1BF44Eb007a1403E7b1ba5d59811C3566897d9F",
+      erc721multichain: "0x09e638C5FF7A51E9b4831d8f5A9b901D8D09B731",
     };
   }
   if (network == Network.Mumbai) {
@@ -49,8 +49,8 @@ export const getNetworkConfig = (network: Network): NetworkConfig => {
       network: Network.Mumbai,
       chainId: BigInt(80001),
       domainId: BigInt(80001),
-      bridgeAddress: "0x655Cd3E60e9324D1E2078116c1EC3b9d0Fc6c89b",
-      erc721multichain: "0x05b257682fF0394176F5E6c1BbdFbFFC80D84704",
+      bridgeAddress: "0xF1BF44Eb007a1403E7b1ba5d59811C3566897d9F",
+      erc721multichain: "0x09e638C5FF7A51E9b4831d8f5A9b901D8D09B731",
     };
   }
   throw new Error("Unknown network");

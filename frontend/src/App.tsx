@@ -124,7 +124,6 @@ function App() {
         out.set(BigInt(nft.tokenId), newNFT);
       }
     }
-    console.log(out);
     return out;
   };
   useEffect(() => {
@@ -194,7 +193,7 @@ function App() {
       await props.connector?.getProvider()
     ).getSigner();
     const contract = new ethers.Contract(
-      "0x72127d3bd3A10DB945E2eEab41Ac525f0ECb1667",
+      "0xCF10305227811954962EBcF41094eF071F6E7AA8",
       abi,
       provider
     );

@@ -1,4 +1,7 @@
 # Multichain NFT
+
+_This project is a submition to ETHGlobal Waterloo 2023 hackaton. [Project page](https://ethglobal.com/showcase/multichainnft-mnrzy)_
+
 Multichain NFTs have all of the properties of regular NFTs, but can exist on many chains **at the same time.** NFTs are often used as a proof of something. Many protocols are working on different chains at the same time, yet users, who bought the NFT, can access services only on one chain, because of challenges blockchain interoperability possesses.   
 
 ## Protocol
@@ -51,5 +54,4 @@ A huge role in interchain communication serves `Bridge` contract. From the point
 ## Frontend client
 In frontend client you can see any
 
-![[https://i.imgur.com/6A6vfxA.png]]
-
+![frontend](https://i.imgur.com/6A6vfxA.png)
